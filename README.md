@@ -1,2 +1,2 @@
 # statistics
-a simple tool to do some statistics homework
+a simple tool to do statistics homework
