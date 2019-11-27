@@ -7,7 +7,7 @@ int main(void){
 	puts("general_discribing -> g");
 	puts("Type \"quit\" or \"q\"to leave");
 	
-	char ch[10];
+	char ch[4];
 	while(printf(">>>")&&gets_all(ch)&&ch[0] != 'q'){
 		if(ch[0] == 'g'){
 			struct chain input;
