@@ -8,7 +8,7 @@ int gets_all(char* ch){
 	do{
 		i++;
 		scanf("%c",ch + i);
-	}while(ch[i] != '\n');
+	}while(ch[i] != '\n'&&i < 4);
 	return 1;
 }
 //链表输入
