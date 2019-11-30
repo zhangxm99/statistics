@@ -5,11 +5,11 @@
 int main(void){
 	puts("Simple statistics tools,the following functions are contained:");
 	puts("general_discribing -> g");
-	puts("Type \"quit\" or \"q\"to leave");
+	puts("Type \"q\" to leave");
 	
-	char ch[4];
-	while(printf(">>>")&&gets_all(ch)&&ch[0] != 'q'){
-		if(ch[0] == 'g'){
+	char ch;
+	while(printf(">>>")&&gets_all(&ch)&&ch != 'q'){
+		if(ch == 'g'){
 			struct chain input;
 			puts("input the data, ! to end: ");
 			int num = arr_input(&input);
