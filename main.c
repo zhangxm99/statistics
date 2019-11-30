@@ -34,7 +34,7 @@ int main(void){
 			float skew_ = skew(arr,num,mean_,std_dvt_);		//偏态系数
 			float kurtosis_ = kurtosis(arr,num,mean_,std_dvt_); 	//峰态系数
 			
-			printf("cv: %f\nvariance (n-1): %f\nkurtosis: %f\n",cv_,variance_,kurtosis_);
+			printf("mean: %f\nvariance (n-1): %f\nkurtosis: %f\n",mean_,variance_,kurtosis_);
 		}
 		else{
 			puts("invalid input");

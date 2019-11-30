@@ -4,7 +4,7 @@
 
 //输入整句
 int gets_all(char* ch){
-	scanf("%c",ch + i);
+	scanf("%c",ch);
 	while(getchar() != '\n')
 		continue;
 	return 1;
@@ -19,8 +19,8 @@ int arr_input(struct chain* chain){
 		ptr->next = NULL;
 		chain = ptr;
 	}
-	getchar();
-	getchar();
+	while(getchar() != '\n')
+		continue;
 	return i;
 }
 
