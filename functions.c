@@ -4,11 +4,9 @@
 
 //输入整句
 int gets_all(char* ch){
-	int i = -1;
-	do{
-		i++;
-		scanf("%c",ch + i);
-	}while(ch[i] != '\n'&&i < 4);
+	scanf("%c",ch + i);
+	while(getchar() != '\n')
+		continue;
 	return 1;
 }
 //链表输入
