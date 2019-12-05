@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<math.h>
+#include<stdlib.h>
 #include "functions.h"
 
 int main(void){
@@ -9,32 +9,20 @@ int main(void){
 	
 	char ch;
 	while(printf(">>>")&&gets_all(&ch)&&ch != 'q'){
-		if(ch == 'g'){
-			struct chain input;
-			puts("input the data, ! to end: ");
-			int num = arr_input(&input);
-			if(num == 0){
-				puts("invalid input");
+		struct collection *collect_arr;
+		if(ch == 'r'){
+			struct collection *collect = (struct collection*)malloc(sizeof(struct collection));
+			struct collection *head = collect;
+			int row = readline(collect);
+			if(row == 0){
+				puts("no data wrote in");
 				continue;
 			}
-			float arr[num];
-			assign(&input,arr);						//链表给数组赋值
-			sort(arr,num);							//从小到大排序
-								
-				
-			float mean_ = mean(arr,num);  				//均值
-			float mid_ = qtl(arr,num,2);					//中位数
-			float mode_ = mode(arr,num);					//众数
-			float variance_ = variance(arr,num,mean_);  		//方差
-			float std_dvt_ = sqrt(variance_);				//标准差
-			float qtl_up_ = qtl(arr,num,3);				//上四分位数
-			float qtl_low_ = qtl(arr,num,1);				//下四分位数
-			float qtl_rg_ = qtl_up_ - qtl_low_;				//四分位差
-			float cv_ = std_dvt_/mean_;					//离散系数
-			float skew_ = skew(arr,num,mean_,std_dvt_);		//偏态系数
-			float kurtosis_ = kurtosis(arr,num,mean_,std_dvt_); 	//峰态系数
-			
-			printf("mean: %f\nvariance (n-1): %f\nkurtosis: %f\n",mean_,variance_,kurtosis_);
+			collect_arr = (struct collection*)malloc(sizeof(struct collection)*row);
+			collection_to_arr_assign(head,collect_arr);
+
+			puts("datas have been written in successfully");
+			printf("%f\n",gnrl_statistics(collect_arr[0].data_ptr,collect_arr[0].data_num).skew_);
 		}
 		else{
 			puts("invalid input");

@@ -1,36 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "functions.h"
-
-//输入整句
-int gets_all(char* ch){
-	scanf("%c",ch);
-	while(getchar() != '\n')
-		continue;
-	return 1;
-}
-//链表输入
-int arr_input(struct chain* chain){
-	int i = 0;
-	while(scanf("%f",&chain->num) == 1){
-		i++;
-		struct chain* ptr = (struct chain*)malloc(sizeof(struct chain));
-		chain->next = ptr;
-		ptr->next = NULL;
-		chain = ptr;
-	}
-	while(getchar() != '\n')
-		continue;
-	return i;
-}
-
-//链表给数组赋值
-void assign(struct chain* chain,float* arr){
-	for(int i = 0;chain->next != NULL;i++){
-		arr[i] = chain->num;
-		chain = chain->next;
-	}
-}
+#include<math.h>
 
 //数组冒泡排序
 void sort(float* arr,int num){
@@ -45,11 +16,22 @@ void sort(float* arr,int num){
 float mean(float* arr,int num){float sum = 0; for(int i = 0;i < num;i++) sum += arr[i]; return sum/num;}
 
 //众数*****可用 待改进
-float mode(float* arr,int num){
+struct mode_retrn mode(float* arr,int num){
+	struct mode_retrn indicate;
+	indicate.num = 1;
 	int store[num]; for(int i = 0;i < num;i++) store[i] = 1;
 	int p = 0; for(int i = 0;i < num;i++) arr[i] == arr[i+1]?store[p]++:p++;
-	int q = 0; for(int i;i < num - 1;i++) store[q] > store[i+1]? :(q = i + 1);
-	return arr[q];
+	int q = 0; for(int i = 0;i < num - 1;i++) store[q] > store[i+1]? :(q = i + 1);
+	if(store[q] != 1){
+		indicate.num = arr[q];
+		indicate.ch = 'Y';
+		return indicate;
+	}
+	else{
+		indicate.ch = 'N';
+		return indicate;
+	}
+	
 }
 
 //方差
@@ -85,5 +67,25 @@ float kurtosis(float* arr,int num,float mean,float std_dvt){
 		p = p*p;
 		sum1 += p*p; sum2 += p;
 	}
-	return (num*(num + 1)*sum1 - 3*sum2*sum2*(num - 1)) / (num - 1)*(num - 2)*(num - 3)*std4;
+	return (num*(num + 1)*sum1 - 3*sum2*sum2*(num - 1)) / ((num - 1)*(num - 2)*(num - 3)*std4);
+}
+
+struct information gnrl_statistics(float *arr,int num){										
+	sort(arr,num);												//从小到大排序
+	struct information store;
+	struct mode_retrn new = mode(arr,num);						//众数判断后直接输出
+
+	store.mean_ = mean(arr,num);  								//均值
+	store.mid_ = qtl(arr,num,2);								//中位数
+	store.variance_ = variance(arr,num,store.mean_);  				//方差
+	store.std_variance_ = sqrt(store.variance_);						//标准差
+	store.qtl_up_ = qtl(arr,num,3);								//上四分位数
+	store.qtl_low_ = qtl(arr,num,1);							//下四分位数
+	store.qtl_rg_ = store.qtl_up_ - store.qtl_low_;							//四分位差
+	store.cv_ = store.std_variance_/store.mean_;								//离散系数
+	store.skew_ = skew(arr,num,store.mean_,store.std_variance_);				//偏态系数
+	store.kurtosis_ = kurtosis(arr,num,store.mean_,store.std_variance_); 	//峰态系数
+	store.range_ = arr[num - 1] - arr[0];						//全距
+
+	return store;
 }
