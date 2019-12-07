@@ -3,10 +3,16 @@
 #include "functions.h"
 
 //输入命令
-int gets_all(char* ch){
-	scanf("%c",ch);
-	while(getchar() != '\n')
-		continue;
+int gets_all(char* ch,int size){
+	int i = -1;
+	do{
+		i++;
+		scanf("%c",&ch[i]);
+	}while(i < size&&ch[i] != '\n');
+	if(ch[0] == 'q') return 0;
+	else if(ch[i] == '\n') ch[i] = '\0';
+	else while(getchar() != '\n') continue;
+
 	return 1;
 }
 
@@ -21,11 +27,9 @@ int readline(struct collection *collection){
 				fclose(fp);
 				return row;
 			}
-			else{
-				continue;
-			}
+			else continue;
 		}
-		(collection->name)[i+1] = '\0';
+		(collection->name)[i] = '\0';
 
 		struct chain *chain = (struct chain*)malloc(sizeof(struct chain));
 		struct chain *head = chain;
@@ -70,6 +74,6 @@ void collection_to_arr_assign(struct collection* coll,struct collection *arr){
 		arr[i] = *coll;
 		struct collection *tmp = coll;
 		coll = coll->next;
-		free(tmp);
+		free(tmp);							//释放链表
 	}
 }
