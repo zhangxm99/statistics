@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include "functions.h"
 
 //输入命令
@@ -21,6 +22,9 @@ int readline(struct collection *collection){
 	FILE *fp = fopen("data","r");
 	int row = 0;
 	for(int trash;fscanf(fp,"%d",&trash) != EOF;){
+		if((trash = fgetc(fp)) == '/'){while(fgetc(fp) != '\n') continue;}  //如果行开头为“/”，这一行就是注释
+		else ungetc(trash,fp);
+
 		int i;
 		for(i = 0;((collection->name)[i]=fgetc(fp)) != ':'&&i < 20;i++){
 			if((collection->name)[i] == EOF){
@@ -56,6 +60,8 @@ int readline(struct collection *collection){
 		collection = ptr;
 		row++;
 	}
+	fclose(fp);
+	return row;
 }
 
 //链表给数组赋样本值
@@ -76,4 +82,9 @@ void collection_to_arr_assign(struct collection* coll,struct collection *arr){
 		coll = coll->next;
 		free(tmp);							//释放链表
 	}
+}
+int search_name(char *ch,struct collection *collect_arr,int row){
+	for(int i = 0;i < row;i++)
+		if(strcmp(ch,collect_arr[i].name) == 0) return i;
+	return -1;
 }

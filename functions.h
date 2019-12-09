@@ -7,20 +7,6 @@ struct mode_retrn{											//mode函数返回多值
 	float num;
 	char ch;
 };
-struct information{											//统计信息
-	struct mode_retrn mode_;
-	float mean_;  								//均值
-	float mid_;									//中位数
-	float variance_;  							//方差
-	float std_variance_;						//标准差
-	float qtl_up_;								//上四分位数
-	float qtl_low_;								//下四分位数
-	float qtl_rg_;								//四分位差
-	float cd_;									//离散系数
-	float skew_;								//偏态系数
-	float kurtosis_; 							//峰态系数
-	float range_;								//全距
-};
 struct collection{											//样本信息
 	char name[NAME_LENTH];
 	float *data_ptr;
@@ -32,6 +18,7 @@ int gets_all(char* ch,int size);
 int readline(struct collection *collection);
 void chain_to_arr_assign(struct chain* chain,float* arr);
 void collection_to_arr_assign(struct collection* coll,struct collection *arr);
+int search_name(char *ch,struct collection *collect_arr,int row);
 //基本统计函数
 void sort(float* arr,int num);
 float mean(float* arr,int num);
@@ -41,7 +28,12 @@ float qtl(float* arr,int num,int where);
 float skew(float* arr,int num,float mean,float std_dvt);
 float kurtosis(float* arr,int num,float mean,float std_dvt);
 
-struct information dscrp_statistics(float *arr,int num);
-void prt_dscrp(struct information prt,int num);
+void dscrp_statistics(float *arr,int num);
+//参数估计
+float z(float alpha);
+float t(float alpha,int df);
+float chi_sqrt(float alpha,int df);
+void single_esti(struct collection collect_arr,float alpha);
+
 
 
