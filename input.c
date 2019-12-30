@@ -18,7 +18,8 @@ int gets_all(char* ch,int size){
 }
 
 //按行输入
-int readline(struct collection *collection){
+int readrow(struct collection *head){
+	struct collection *collection = head;
 	FILE *fp = fopen("data","r");
 	int row = 0;
 	for(int trash;fscanf(fp,"%d",&trash) != EOF;){
@@ -63,6 +64,7 @@ int readline(struct collection *collection){
 	fclose(fp);
 	return row;
 }
+
 
 //链表给数组赋样本值
 void chain_to_arr_assign(struct chain* chain,float* arr){

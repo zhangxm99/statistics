@@ -1,4 +1,4 @@
-#define NAME_LENTH 20
+#define NAME_LENTH 40
 struct chain{												//链表
 	float num;
 	struct chain* next;
@@ -15,7 +15,7 @@ struct collection{											//样本信息
 };
 //输入与数据结构处理
 int gets_all(char* ch,int size);
-int readline(struct collection *collection);
+int readrow(struct collection *head);
 void chain_to_arr_assign(struct chain* chain,float* arr);
 void collection_to_arr_assign(struct collection* coll,struct collection *arr);
 int search_name(char *ch,struct collection *collect_arr,int row);
